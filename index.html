@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List of posts</title>
+  </head>
+  <body>
+    <header>All the posts</header>
+    <main>
+      <div id="postList"></div>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", (e) => {
+        fetch("https://jsonplaceholder.typicode.com/posts")
+          .then((resp) => resp.json())
+          .then((data) => {
+            data.forEach((element) => {
+              const postList = document.getElementById("postList");
+              const h2 = document.createElement("h2");
+              const p = document.createElement("p");
+              data.title = element.title;
+              data.body = element.body;
+              h2.innerHTML = `Название: ${data.title}`;
+              p.innerHTML = `Превью: ${data.body}`;
+              postList.appendChild(h2);
+              postList.appendChild(p);
+            });
+          })
+          .catch((error) => console.log("Запрос не выполнен", error));
+      });
+    </script>
+  </body>
+</html>
